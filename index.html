@@ -925,18 +925,9 @@
 
     // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openInHapp() {
-      // Передаём ссылку БЕЗ encodeURIComponent — кириллица должна остаться как есть
-      const happLink = `happ://add/sub?url=${KEYS_URL}`;
-
-      if (window.Telegram?.WebApp?.openLink) {
-        try {
-          Telegram.WebApp.openLink(happLink);
-        } catch {
-          window.open(happLink, '_blank');
-        }
-      } else {
-        window.location.href = happLink;
-      }
+      // encodeURI НЕ трогает кириллицу и спецсимволы URL — ссылка остаётся читаемой
+      const happLink = 'happ://add/sub?url=' + KEYS_URL;
+      window.location.href = happLink;
       showToast('Открываю Happ...');
     }
 
