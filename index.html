@@ -929,8 +929,10 @@
 
     // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openHappExternal() {
-      copyToClipboard('happ://add/sub?url=https://storage.yandexcloud.net/tariff20/%D0%BE%D1%82%D0%BE%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5.txt');
-      showToast('✓ Ссылка скопирована — вставь в браузер телефона');
+      // Happ принимает подписку через happ://install-sub/ или просто открывает ссылку
+      var url = 'https://storage.yandexcloud.net/tariff20/%D0%BE%D1%82%D0%BE%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5.txt';
+      window.location.href = 'happ://install-sub/?url=' + url;
+      showToast('Открываю Happ...');
     }
 
     // ─── DONATE ──────────────────────────────────────────────────────
