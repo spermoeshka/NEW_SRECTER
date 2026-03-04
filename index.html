@@ -597,7 +597,11 @@
             <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.25);border-radius:12px;padding:1rem;margin-bottom:0.9rem;text-align:left;">
               <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;">⚡ Способ 1 — Автоматически</div>
               <p style="font-size:0.72rem;margin-bottom:0.8rem;line-height:1.6;">Нажми кнопку — Happ сам откроется и добавит все ключи</p>
-              <button onclick="openInHapp()" class="btn btn-primary btn-full" style="padding:0.8rem;">ОТКРЫТЬ В HAPP</button>
+              <a href="#"
+                 onclick="openHappExternal(); return false;"
+                 style="display:block;text-align:center;padding:0.9rem;background:linear-gradient(135deg,#fff 0%,#c0c0c0 100%);color:#000;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-decoration:none;text-transform:uppercase;">
+                ОТКРЫТЬ В HAPP
+              </a>
             </div>
 
             <!-- Ручной способ -->
@@ -924,8 +928,16 @@
     }
 
     // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
-    function openInHapp() {
-      window.location.href = 'happ://add/sub?url=https://storage.yandexcloud.net/tariff20/отобранные.txt';
+    function openHappExternal() {
+      // Открываем промежуточную страницу в ВНЕШНЕМ браузере
+      // Из внешнего браузера happ:// работает без ограничений
+      const redirectPage = 'https://spermoeshka.github.io/NEW_SRECTER/happ-redirect.html';
+      if (window.Telegram?.WebApp) {
+        // try_instant_view: false — открывает именно в браузере телефона, не в WebView
+        Telegram.WebApp.openLink(redirectPage, { try_instant_view: false });
+      } else {
+        window.open(redirectPage, '_blank');
+      }
       showToast('Открываю Happ...');
     }
 
