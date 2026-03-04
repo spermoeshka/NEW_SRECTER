@@ -929,16 +929,7 @@
 
     // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openHappExternal() {
-      // Открываем промежуточную страницу в ВНЕШНЕМ браузере
-      // Из внешнего браузера happ:// работает без ограничений
-      const redirectPage = 'https://spermoeshka.github.io/NEW_SRECTER/happ-redirect.html';
-      if (window.Telegram?.WebApp) {
-        // try_instant_view: false — открывает именно в браузере телефона, не в WebView
-        Telegram.WebApp.openLink(redirectPage, { try_instant_view: false });
-      } else {
-        window.open(redirectPage, '_blank');
-      }
-      showToast('Открываю Happ...');
+      window.location.href = 'happ://add/sub?url=https://storage.yandexcloud.net/tariff20/%D0%BE%D1%82%D0%BE%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5.txt';
     }
 
     // ─── DONATE ──────────────────────────────────────────────────────
