@@ -543,58 +543,76 @@
         <button class="btn btn-full" onclick="showPage('page-profile')">← ПРОФИЛЬ</button>
       </div>
 
-      <!-- НАСТРОЙКА -->
+      <!-- НАСТРОЙКА — пошаговый wizard -->
       <div id="page-settings" class="page">
         <div class="page-header">Настройка</div>
 
-        <div class="content-card" style="border-color:rgba(0,255,136,0.25);background:rgba(0,255,136,0.03);text-align:center;">
-          <div style="font-size:2.4rem;margin-bottom:0.6rem;">📱</div>
-          <h3 style="font-size:1.1rem;text-align:center;margin-bottom:0.5rem;">Скачай Happ</h3>
-          <p style="text-align:center;margin-bottom:1.2rem;">Самое простое приложение для VLESS. Одна кнопка — и ты в сети.</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
-            <a href="https://apps.apple.com/app/happ-proxy-utility/id6504287215" target="_blank"
-               style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;text-decoration:none;color:var(--text);font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.05em;">
-               App Store
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.hiddify.happ" target="_blank"
-               style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;text-decoration:none;color:var(--text);font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.05em;">
-              🤖 Google Play
-            </a>
+        <!-- ШАГ 1: Скачать Happ -->
+        <div id="setup-step-1">
+          <div class="content-card" style="border-color:rgba(0,255,136,0.25);background:rgba(0,255,136,0.03);text-align:center;">
+            <div style="font-size:2.8rem;margin-bottom:0.7rem;">📱</div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.15em;margin-bottom:0.5rem;">ШАГ 1 ИЗ 3</div>
+            <h3 style="font-size:1.1rem;text-align:center;margin-bottom:0.6rem;">Скачай Happ</h3>
+            <p style="text-align:center;margin-bottom:1.3rem;line-height:1.7;">Это приложение для подключения к VPN. Бесплатное, простое, работает на iOS и Android.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:1rem;">
+              <a href="https://apps.apple.com/app/happ-proxy-utility/id6504287215" target="_blank"
+                 onclick="markAppDownloaded()"
+                 style="display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.85rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.2);border-radius:10px;text-decoration:none;color:var(--text);font-family:'Space Mono',monospace;font-size:0.65rem;font-weight:700;">
+                 🍎 App Store
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.hiddify.happ" target="_blank"
+                 onclick="markAppDownloaded()"
+                 style="display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.85rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.2);border-radius:10px;text-decoration:none;color:var(--text);font-family:'Space Mono',monospace;font-size:0.65rem;font-weight:700;">
+                🤖 Google Play
+              </a>
+            </div>
           </div>
+          <button class="btn btn-primary btn-full" onclick="goSetupStep(2)" style="margin-bottom:0.5rem;">УЖЕ СКАЧАЛ → ДАЛЕЕ</button>
+          <button class="btn btn-full" onclick="showPage('page-main')">← ГЛАВНАЯ</button>
         </div>
 
-        <div class="content-card">
-          <h3>Подключение — 2 способа</h3>
-          <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:0.9rem;margin-bottom:1rem;">
-            <div style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.5rem;text-transform:uppercase;">⚡ Способ 1 — Авто</div>
-            <p style="margin-bottom:0.8rem;">Сначала скопируй ключ в «Мои ключи», затем нажми кнопку — Happ откроется и сам добавит его</p>
-            <button onclick="openInHapp()" class="btn btn-primary btn-full" style="padding:0.75rem;font-size:0.85rem;">ОТКРЫТЬ В HAPP →</button>
+        <!-- ШАГ 2: Получить ключ -->
+        <div id="setup-step-2" style="display:none;">
+          <div class="content-card" style="text-align:center;">
+            <div style="font-size:2.8rem;margin-bottom:0.7rem;">🔑</div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.15em;margin-bottom:0.5rem;">ШАГ 2 ИЗ 3</div>
+            <h3 style="font-size:1.1rem;text-align:center;margin-bottom:0.6rem;">Скопируй ключи</h3>
+            <p style="text-align:center;margin-bottom:1.3rem;line-height:1.7;">Нажми кнопку ниже — ссылка на ключи скопируется в буфер обмена. Она понадобится на следующем шаге.</p>
+            <button onclick="copyKeysAndNext()" class="btn btn-primary btn-full" style="margin-bottom:0.6rem;">📋 СКОПИРОВАТЬ КЛЮЧИ</button>
+            <div id="copy-confirm" style="display:none;font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);margin-top:0.4rem;">✓ Скопировано!</div>
           </div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--text-muted);">
-            <div style="color:rgba(255,255,255,0.5);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.7rem;">📋 Способ 2 — Вручную</div>
-            <div class="step"><div class="step-num">1</div><div class="step-text">Профиль → Мои ключи → скопируй ключ</div></div>
-            <div class="step"><div class="step-num">2</div><div class="step-text">Открой Happ → нажми «+» справа сверху</div></div>
-            <div class="step"><div class="step-num">3</div><div class="step-text">«Импорт из буфера обмена» — ключ добавится</div></div>
-            <div class="step"><div class="step-num">4</div><div class="step-text">Нажми кнопку подключения. Готово 🎉</div></div>
-          </div>
+          <button id="step2-next" class="btn btn-primary btn-full" onclick="goSetupStep(3)" style="margin-bottom:0.5rem;opacity:0.35;pointer-events:none;">ДАЛЕЕ →</button>
+          <button class="btn btn-full" onclick="goSetupStep(1)">← НАЗАД</button>
         </div>
 
-        <div class="content-card">
-          <h3>Другие приложения</h3>
-          <div class="app-list">
-            <span class="app-tag">v2rayNG</span>
-            <span class="app-tag">Hiddify</span>
-            <span class="app-tag">Nekobox</span>
-            <span class="app-tag">v2rayN</span>
-          </div>
-          <p style="margin-top:0.8rem;">Принцип тот же: скопируй ключ → «+» → «Из буфера»</p>
-        </div>
+        <!-- ШАГ 3: Подключиться -->
+        <div id="setup-step-3" style="display:none;">
+          <div class="content-card" style="text-align:center;">
+            <div style="font-size:2.8rem;margin-bottom:0.7rem;">🚀</div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.15em;margin-bottom:0.5rem;">ШАГ 3 ИЗ 3</div>
+            <h3 style="font-size:1.1rem;text-align:center;margin-bottom:0.6rem;">Подключись к VPN</h3>
+            <p style="text-align:center;margin-bottom:1.3rem;line-height:1.7;">Выбери удобный способ добавить ключи в Happ:</p>
 
-        <div class="content-card">
-          <h3>Поддержка</h3>
-          <p>Если что-то не работает — пишите в Telegram. Помогаем 24/7.</p>
+            <!-- Авто способ -->
+            <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.25);border-radius:12px;padding:1rem;margin-bottom:0.9rem;text-align:left;">
+              <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;">⚡ Способ 1 — Автоматически</div>
+              <p style="font-size:0.72rem;margin-bottom:0.8rem;line-height:1.6;">Нажми кнопку — Happ сам откроется и добавит все ключи</p>
+              <button onclick="openInHapp()" class="btn btn-primary btn-full" style="padding:0.8rem;">ОТКРЫТЬ В HAPP</button>
+            </div>
+
+            <!-- Ручной способ -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:left;">
+              <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.7rem;">📋 Способ 2 — Вручную</div>
+              <div class="step"><div class="step-num">1</div><div class="step-text">Открой Happ на телефоне</div></div>
+              <div class="step"><div class="step-num">2</div><div class="step-text">Нажми «+» в правом верхнем углу</div></div>
+              <div class="step"><div class="step-num">3</div><div class="step-text">Выбери «Добавить по ссылке» или «Из буфера»</div></div>
+              <div class="step"><div class="step-num">4</div><div class="step-text">Вставь скопированную ссылку и нажми «Подключить»</div></div>
+              <div class="step"><div class="step-num">5</div><div class="step-text">Нажми большую кнопку включения — готово! 🎉</div></div>
+            </div>
+          </div>
+          <button class="btn btn-full" style="margin-top:0.5rem;margin-bottom:0.5rem;" onclick="goSetupStep(2)">← НАЗАД</button>
+          <button class="btn btn-full" onclick="showPage('page-main')">НА ГЛАВНУЮ ✓</button>
         </div>
-        <button class="btn btn-full" onclick="showPage('page-main')" style="margin-top:0.5rem;">← ГЛАВНАЯ</button>
       </div>
 
       <!-- ИНФО -->
@@ -653,9 +671,9 @@
 
       <div class="donate-wallet-card">
         <div class="donate-wallet-top">
-          <div class="donate-wallet-label">💳 Тинькофф / СБП</div>
+          <div class="donate-wallet-label">💳 ВТБ / СБП</div>
         </div>
-        <div class="donate-wallet-addr" id="wallet-tinkoff">+7 (999) 000-00-00</div>
+        <div class="donate-wallet-addr" id="wallet-tinkoff">+7 (978) 935 37 55</div>
         <button class="donate-copy-btn" onclick="copyWallet('tinkoff')" id="copy-tinkoff">СКОПИРОВАТЬ НОМЕР</button>
       </div>
 
@@ -663,7 +681,7 @@
         <div class="donate-wallet-top">
           <div class="donate-wallet-label">₿ Крипта — USDT TRC-20</div>
         </div>
-        <div class="donate-wallet-addr" id="wallet-crypto">TVXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+        <div class="donate-wallet-addr" id="wallet-crypto">TKfnC5NtmhvSAu9tTqGpeAN1dpVeFuq5qR</div>
         <button class="donate-copy-btn" onclick="copyWallet('crypto')" id="copy-crypto">СКОПИРОВАТЬ АДРЕС</button>
       </div>
 
@@ -884,18 +902,49 @@
       showToast(ok ? '✓ Скопировано — вставь в Happ' : 'Не удалось скопировать');
     }
 
-    // Открыть ключ в Happ через deep link
+    // ─── SETUP WIZARD ────────────────────────────────────────────────
+    function goSetupStep(n) {
+      [1,2,3].forEach(i => {
+        const el = document.getElementById(`setup-step-${i}`);
+        if (el) el.style.display = i === n ? 'block' : 'none';
+      });
+      document.querySelector('.container').scrollTop = 0;
+    }
+
+    function markAppDownloaded() {
+      setTimeout(() => showToast('Вернись сюда после установки!'), 500);
+    }
+
+    async function copyKeysAndNext() {
+      const ok = await copyToClipboard(KEYS_URL);
+      if (ok) {
+        document.getElementById('copy-confirm').style.display = 'block';
+        const nextBtn = document.getElementById('step2-next');
+        nextBtn.style.opacity = '1';
+        nextBtn.style.pointerEvents = 'auto';
+        showToast('✓ Ключи скопированы!');
+      } else {
+        showToast('Не удалось скопировать — попробуй ещё раз');
+      }
+    }
+
+    // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openInHapp() {
       const encoded = encodeURIComponent(KEYS_URL);
-      const deepLink = `happ://import?url=${encoded}`;
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      iframe.src = deepLink;
-      setTimeout(() => {
-        document.body.removeChild(iframe);
-        showToast('Happ открывается... если нет — скопируй ссылку вручную');
-      }, 800);
+      const happLink = `happ://add/sub?url=${encoded}`;
+
+      if (window.Telegram?.WebApp?.openLink) {
+        // Telegram WebApp — открываем через нативный метод
+        try {
+          Telegram.WebApp.openLink(happLink);
+        } catch {
+          // Если openLink не поддерживает кастомные схемы — пробуем openTelegramLink fallback
+          window.open(happLink, '_blank');
+        }
+      } else {
+        window.location.href = happLink;
+      }
+      showToast('Открываю Happ...');
     }
 
     // ─── DONATE ──────────────────────────────────────────────────────
@@ -978,7 +1027,7 @@
       const ok = await copyToClipboard(KEYS_URL);
       showToast(ok ? '✓ Ссылка скопирована — вставь в Happ' : '⚠ Скопируй вручную: ' + KEYS_URL.slice(0, 30) + '…');
     };
-    document.getElementById('settingsBtn').onclick = () => showPage('page-settings');
+    document.getElementById('settingsBtn').onclick = () => { goSetupStep(1); showPage('page-settings'); };
     document.getElementById('myKeysBtn').onclick = () => { renderKeysList(); showPage('page-keys'); };
     document.getElementById('donateMainBtn').onclick = openDonateModal;
     document.getElementById('donateProfileBtn').onclick = openDonateModal;
