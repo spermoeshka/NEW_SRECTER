@@ -673,7 +673,7 @@
         <div class="donate-wallet-top">
           <div class="donate-wallet-label">💳 ВТБ / СБП</div>
         </div>
-        <div class="donate-wallet-addr" id="wallet-tinkoff">+7 (978) 935 37 55</div>
+        <div class="donate-wallet-addr" id="wallet-tinkoff">+7 (978) 935-37-55</div>
         <button class="donate-copy-btn" onclick="copyWallet('tinkoff')" id="copy-tinkoff">СКОПИРОВАТЬ НОМЕР</button>
       </div>
 
@@ -705,16 +705,11 @@
   <div class="footer">Made by <span>BERSERK</span> © 2026</div>
 
   <script>
-    // ─── НАСТРОЙ СВОЁ ───────────────────────────────────────────────
+    // ─── РЕКВИЗИТЫ (вписаны прямо в HTML выше) ───────────────────────
     const WALLETS = {
-      tinkoff: '+7 (999) 000-00-00',   // ← замени
-      crypto:  'TVXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' // ← замени
+      tinkoff: document.getElementById('wallet-tinkoff').textContent,
+      crypto:  document.getElementById('wallet-crypto').textContent
     };
-    // ─────────────────────────────────────────────────────────────────
-
-    // Установим текст кошельков
-    document.getElementById('wallet-tinkoff').textContent = WALLETS.tinkoff;
-    document.getElementById('wallet-crypto').textContent = WALLETS.crypto;
 
     // ─── STATE ───────────────────────────────────────────────────────
     let userId = null;
@@ -930,15 +925,13 @@
 
     // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openInHapp() {
-      const encoded = encodeURIComponent(KEYS_URL);
-      const happLink = `happ://add/sub?url=${encoded}`;
+      // Передаём ссылку БЕЗ encodeURIComponent — кириллица должна остаться как есть
+      const happLink = `happ://add/sub?url=${KEYS_URL}`;
 
       if (window.Telegram?.WebApp?.openLink) {
-        // Telegram WebApp — открываем через нативный метод
         try {
           Telegram.WebApp.openLink(happLink);
         } catch {
-          // Если openLink не поддерживает кастомные схемы — пробуем openTelegramLink fallback
           window.open(happLink, '_blank');
         }
       } else {
