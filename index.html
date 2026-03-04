@@ -925,9 +925,7 @@
 
     // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openInHapp() {
-      // encodeURI НЕ трогает кириллицу и спецсимволы URL — ссылка остаётся читаемой
-      const happLink = 'happ://add/sub?url=' + KEYS_URL;
-      window.location.href = happLink;
+      window.location.href = 'happ://add/sub?url=https://storage.yandexcloud.net/tariff20/отобранные.txt';
       showToast('Открываю Happ...');
     }
 
