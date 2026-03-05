@@ -938,11 +938,11 @@
     }
 
     function openHappExternal() {
-      var redirectUrl = 'https://spermoeshka.github.io/NEW_SRECTER/happ-redirect.html';
+      var workerUrl = 'https://specter-happ.borzenkovandrej07.workers.dev/';
       if (window.Telegram?.WebApp?.openLink) {
-        Telegram.WebApp.openLink(redirectUrl, { try_instant_view: false });
+        Telegram.WebApp.openLink(workerUrl, { try_instant_view: false });
       } else {
-        window.open(redirectUrl, '_blank');
+        window.open(workerUrl, '_blank');
       }
       showToast('Открываю Happ...');
     }
