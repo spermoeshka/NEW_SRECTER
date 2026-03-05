@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -453,8 +453,18 @@
 
     @media (max-width:480px) {
       body { padding:0 1rem 6rem; }
-      .logo-container { margin:7rem 0 1.2rem; }
-      .container { overflow-y:auto; }
+      .logo-container { margin:5rem 0 1rem; }
+      .container { overflow-y:auto; padding-bottom:5rem; }
+    }
+    @media (min-width:481px) and (max-width:768px) {
+      .logo-container { margin:6rem 0 1.2rem; }
+      .container { overflow-y:auto; padding-bottom:5rem; }
+    }
+    @media (min-width:769px) {
+      .logo-container { margin:4rem 0 1.5rem; }
+      .container { overflow-y:auto; max-width:480px; padding-bottom:4rem; }
+      .bottom-nav { padding:0.7rem 1rem; }
+      .nav-btn { padding:0.6rem 1.2rem; font-size:0.65rem; }
     }
   </style>
 </head>
@@ -595,12 +605,12 @@
 
             <!-- Авто способ -->
             <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.25);border-radius:12px;padding:1rem;margin-bottom:0.9rem;text-align:left;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;">⚡ Способ 1 — Быстро</div>
-              <p style="font-size:0.72rem;margin-bottom:0.8rem;line-height:1.6;">Нажми кнопку — ссылка скопируется. Затем открой браузер (Safari или Chrome) и вставь в адресную строку. Happ откроется сам.</p>
+              <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;">⚡ Способ 1 — Автоматически</div>
+              <p style="font-size:0.72rem;margin-bottom:0.8rem;line-height:1.6;">Нажми кнопку — откроется браузер и Happ сам предложит добавить подписку</p>
               <a href="#"
                  onclick="openHappExternal(); return false;"
-                 style="display:block;text-align:center;padding:0.9rem;background:linear-gradient(135deg,#fff 0%,#c0c0c0 100%);color:#000;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-decoration:none;text-transform:uppercase;">
-                📋 СКОПИРОВАТЬ ССЫЛКУ ДЛЯ HAPP
+                 style="display:block;text-align:center;padding:0.9rem;background:linear-gradient(135deg,#00ff88 0%,#00cc6a 100%);color:#000;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-decoration:none;text-transform:uppercase;box-shadow:0 0 20px rgba(0,255,136,0.3);">
+                🚀 ОТКРЫТЬ В HAPP
               </a>
             </div>
 
@@ -927,10 +937,14 @@
       }
     }
 
-    // ─── HAPP DEEP LINK — Telegram совместимый ───────────────────────
     function openHappExternal() {
-      copyToClipboard('happ://add/sub?url=https://storage.yandexcloud.net/tariff20/%D0%BE%D1%82%D0%BE%D0%B1%D1%80%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5.txt');
-      showToast('✓ Ссылка скопирована — вставь в браузер телефона');
+      var redirectUrl = 'https://spermoeshka.github.io/NEW_SRECTER/happ-redirect.html';
+      if (window.Telegram?.WebApp?.openLink) {
+        Telegram.WebApp.openLink(redirectUrl, { try_instant_view: false });
+      } else {
+        window.open(redirectUrl, '_blank');
+      }
+      showToast('Открываю Happ...');
     }
 
     // ─── DONATE ──────────────────────────────────────────────────────
