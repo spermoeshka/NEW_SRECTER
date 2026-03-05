@@ -17,87 +17,89 @@
     .logo { font-size:2rem; font-weight:700; letter-spacing:0.2em; margin-bottom:0.3rem;
       background:linear-gradient(180deg,#fff 0%,#888 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .sub-title { font-family:'Space Mono',monospace; font-size:0.55rem; color:#444; letter-spacing:0.25em; margin-bottom:3rem; }
-    .spinner { width:56px; height:56px; border:2px solid rgba(0,255,136,0.15);
-      border-top-color:#00ff88; border-radius:50%; animation:spin 0.9s linear infinite; margin:0 auto 1.5rem; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .status { font-family:'Space Mono',monospace; font-size:0.7rem; color:#00ff88;
-      letter-spacing:0.1em; animation:pulse 2s ease-in-out infinite; margin-bottom:0.5rem; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .hint { font-family:'Space Mono',monospace; font-size:0.62rem; color:#555; line-height:1.8; }
-    .buttons { margin-top:2rem; display:flex; flex-direction:column; gap:0.8rem; width:100%; max-width:300px; }
+    .sub-title { font-family:'Space Mono',monospace; font-size:0.55rem; color:#444; letter-spacing:0.25em; margin-bottom:2.5rem; }
+
+    .step-card {
+      background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2);
+      border-radius:16px; padding:1.5rem; width:100%; max-width:320px; margin-bottom:1rem;
+    }
+    .step-num-big { font-size:2.5rem; font-weight:700; color:#00ff88; line-height:1; margin-bottom:0.5rem; }
+    .step-title { font-size:1.1rem; font-weight:700; letter-spacing:0.1em; margin-bottom:0.4rem; }
+    .step-desc { font-family:'Space Mono',monospace; font-size:0.65rem; color:#666; line-height:1.7; }
+
     .btn { padding:1rem; border-radius:12px; font-family:'Rajdhani',sans-serif;
-      font-size:1rem; font-weight:700; letter-spacing:0.1em; cursor:pointer;
-      border:none; text-transform:uppercase; width:100%; }
-    .btn-green { background:linear-gradient(135deg,#00ff88,#00cc6a); color:#000; box-shadow:0 0 20px rgba(0,255,136,0.25); }
+      font-size:1rem; font-weight:700; letter-spacing:0.12em; cursor:pointer;
+      border:none; text-transform:uppercase; width:100%; max-width:320px;
+      margin-bottom:0.7rem; }
+    .btn-green { background:linear-gradient(135deg,#00ff88,#00cc6a); color:#000;
+      box-shadow:0 0 24px rgba(0,255,136,0.3); }
     .btn-white { background:linear-gradient(135deg,#fff,#ccc); color:#000; }
-    .btn-gray  { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12) !important; color:#666; font-size:0.8rem; }
-    .step-block { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
-      border-radius:12px; padding:1.2rem; margin-top:2rem; text-align:left; max-width:300px; width:100%; display:none; }
-    .step-block-title { font-family:'Space Mono',monospace; font-size:0.6rem; color:#00ff88; letter-spacing:0.1em; margin-bottom:0.8rem; text-transform:uppercase; }
-    .step { display:flex; gap:0.6rem; align-items:flex-start; margin-bottom:0.6rem; }
-    .step-num { width:20px; height:20px; border-radius:50%; background:#00ff88; color:#000; font-size:0.65rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .step-text { font-family:'Space Mono',monospace; font-size:0.62rem; color:#666; line-height:1.6; }
-    .back { margin-top:1.5rem; font-family:'Space Mono',monospace; font-size:0.6rem; color:#333; text-decoration:none; }
+    .btn-gray { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1) !important; color:#555; font-size:0.8rem; }
+
+    .copied-badge { display:none; font-family:'Space Mono',monospace; font-size:0.65rem;
+      color:#00ff88; margin-bottom:1rem; letter-spacing:0.1em; }
+    .back { margin-top:1rem; font-family:'Space Mono',monospace; font-size:0.6rem; color:#333; text-decoration:none; }
   </style>
 </head>
 <body>
   <div class="logo">SPECTER VPN</div>
   <div class="sub-title">SECURE · FAST · ZERO LOGS</div>
 
-  <div class="spinner" id="spinner"></div>
-  <div class="status" id="status">ОТКРЫВАЮ HAPP...</div>
-  <div class="hint" id="hint">Подождите секунду...</div>
-
-  <div class="buttons" id="btns" style="display:none;">
-    <button class="btn btn-green" onclick="tryHapp()">📱 ОТКРЫТЬ В HAPP</button>
-    <button class="btn btn-white" onclick="copyAndShow()">📋 СКОПИРОВАТЬ ССЫЛКУ</button>
+  <div class="step-card">
+    <div class="step-num-big">1</div>
+    <div class="step-title">Ссылка скопирована!</div>
+    <div class="step-desc" id="copy-status">Нажми кнопку ниже чтобы скопировать ссылку</div>
   </div>
 
-  <div class="step-block" id="manual-steps">
-    <div class="step-block-title">Как вставить вручную:</div>
-    <div class="step"><div class="step-num">1</div><div class="step-text">Открой Happ</div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-text">Нажми «+» справа сверху</div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-text">«Добавить подписку» → «Из буфера»</div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-text">Нажми подключить — готово! 🎉</div></div>
+  <button class="btn btn-green" id="copy-btn" onclick="doCopy()">📋 СКОПИРОВАТЬ ССЫЛКУ</button>
+  <div class="copied-badge" id="copied-badge">✓ СКОПИРОВАНО В БУФЕР</div>
+
+  <div class="step-card" style="border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);">
+    <div class="step-num-big" style="color:#fff;">2</div>
+    <div class="step-title">Открой Happ</div>
+    <div class="step-desc">Нажми «+» → «Добавить подписку» → «Из буфера обмена»</div>
   </div>
 
-  <a class="back" href="javascript:history.back()">← НАЗАД</a>
+  <button class="btn btn-white" onclick="openHapp()">📱 ОТКРЫТЬ HAPP</button>
+  <button class="btn btn-gray" onclick="history.back()">← НАЗАД</button>
 
   <script>
-    // Ссылка которая работает вручную — используем именно её
-    var RAW = 'https://storage.yandexcloud.net/tariff20/отобранные.txt';
+    var URL = 'https://storage.yandexcloud.net/tariff20/отобранные.txt';
 
-    function tryHapp() {
-      // happ:// с незакодированной ссылкой — именно так работает вручную
-      window.location.href = 'happ://add/sub?url=' + RAW;
-    }
-
-    function copyAndShow() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(RAW);
+    function doCopy() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(URL).then(showCopied).catch(fallbackCopy);
       } else {
-        var ta = document.createElement('textarea');
-        ta.value = RAW;
-        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
-        document.body.appendChild(ta);
-        ta.select(); ta.setSelectionRange(0,9999);
-        document.execCommand('copy');
-        document.body.removeChild(ta);
+        fallbackCopy();
       }
-      document.getElementById('manual-steps').style.display = 'block';
-      document.getElementById('hint').textContent = '✓ Ссылка скопирована!';
     }
 
-    // Запускаем сразу
-    tryHapp();
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = URL;
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select(); ta.setSelectionRange(0, 9999);
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showCopied();
+    }
 
-    setTimeout(function() {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('status').textContent = 'ВЫБЕРИ СПОСОБ';
-      document.getElementById('hint').textContent = 'Если Happ не открылся автоматически:';
-      document.getElementById('btns').style.display = 'flex';
-    }, 2000);
+    function showCopied() {
+      document.getElementById('copy-btn').textContent = '✓ СКОПИРОВАНО!';
+      document.getElementById('copy-btn').style.background = 'linear-gradient(135deg,#00ff88,#00cc6a)';
+      document.getElementById('copied-badge').style.display = 'block';
+      document.getElementById('copy-status').textContent = 'Ссылка в буфере — теперь открой Happ и вставь';
+    }
+
+    function openHapp() {
+      window.location.href = 'happ://';
+    }
+
+    // Копируем автоматически при загрузке страницы
+    window.addEventListener('load', function() {
+      setTimeout(doCopy, 300);
+    });
   </script>
 </body>
 </html>
