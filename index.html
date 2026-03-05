@@ -491,12 +491,12 @@
           </div>
           <div class="user-info">
             <div id="name-main" class="user-name">Загрузка...</div>
-            <div id="status-main" class="status error">Нет ключей</div>
+            <div id="status-main" class="status error">VPN не подключён</div>
           </div>
         </div>
         <div class="buttons">
-          <button id="addKeyBtn" class="btn btn-primary">+ КЛЮЧ</button>
-          <button id="settingsBtn" class="btn">НАСТРОЙКА</button>
+          <button id="addKeyBtn" class="btn btn-primary">📋 СКОПИРОВАТЬ КЛЮЧ</button>
+          <button id="settingsBtn" class="btn">НАСТРОИТЬ VPN</button>
         </div>
         <div class="buttons" style="margin-top:0;">
           <button id="donateMainBtn" class="btn btn-donate btn-full">❤️ ПОДДЕРЖИ НАС</button>
@@ -527,16 +527,16 @@
           </div>
           <div class="user-info">
             <div id="name-profile" class="user-name">Гость</div>
-            <div id="status-profile" class="status error">Нет ключей</div>
+            <div id="status-profile" class="status error">VPN не подключён</div>
           </div>
         </div>
         <div id="sub-card-profile" class="sub-card" style="display:none;">
-          <div class="sub-card-title">Сохранённые ключи</div>
-          <div id="prof-keys-count" class="sub-detail">Ключей: —</div>
+          <div class="sub-card-title">Подписка активна</div>
+          <div id="prof-keys-count" class="sub-detail">Серверов: —</div>
           <div id="prof-added" class="sub-detail">Добавлено: —</div>
         </div>
         <div class="buttons">
-          <button id="myKeysBtn" class="btn btn-primary">МОИ КЛЮЧИ</button>
+          <button id="myKeysBtn" class="btn btn-primary">🔗 ПОДЕЛИТЬСЯ</button>
           <button class="btn" onclick="showPage('page-main')">ГЛАВНАЯ</button>
         </div>
         <button id="donateProfileBtn" class="btn btn-donate btn-full" style="margin-top:0.3rem;">❤️ ПОДДЕРЖИ ПРОЕКТ</button>
@@ -597,34 +597,19 @@
 
         <!-- ШАГ 3: Подключиться -->
         <div id="setup-step-3" style="display:none;">
-          <div class="content-card" style="text-align:center;">
+          <div class="content-card" style="text-align:center;border-color:rgba(0,255,136,0.25);background:rgba(0,255,136,0.03);">
             <div style="font-size:2.8rem;margin-bottom:0.7rem;">🚀</div>
             <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.15em;margin-bottom:0.5rem;">ШАГ 3 ИЗ 3</div>
             <h3 style="font-size:1.1rem;text-align:center;margin-bottom:0.6rem;">Подключись к VPN</h3>
-            <p style="text-align:center;margin-bottom:1.3rem;line-height:1.7;">Выбери удобный способ добавить ключи в Happ:</p>
-
-            <!-- Авто способ -->
-            <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.25);border-radius:12px;padding:1rem;margin-bottom:0.9rem;text-align:left;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;">⚡ Способ 1 — Автоматически</div>
-              <p style="font-size:0.72rem;margin-bottom:0.8rem;line-height:1.6;">Нажми кнопку — откроется браузер и Happ сам предложит добавить подписку</p>
-              <a href="#"
-                 onclick="openHappExternal(); return false;"
-                 style="display:block;text-align:center;padding:0.9rem;background:linear-gradient(135deg,#00ff88 0%,#00cc6a 100%);color:#000;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-decoration:none;text-transform:uppercase;box-shadow:0 0 20px rgba(0,255,136,0.3);">
-                🚀 ОТКРЫТЬ В HAPP
-              </a>
-            </div>
-
-            <!-- Ручной способ -->
-            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:left;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.7rem;">📋 Способ 2 — Вручную</div>
-              <div class="step"><div class="step-num">1</div><div class="step-text">Открой Happ на телефоне</div></div>
-              <div class="step"><div class="step-num">2</div><div class="step-text">Нажми «+» в правом верхнем углу</div></div>
-              <div class="step"><div class="step-num">3</div><div class="step-text">Выбери «Добавить по ссылке» или «Из буфера»</div></div>
-              <div class="step"><div class="step-num">4</div><div class="step-text">Вставь скопированную ссылку и нажми «Подключить»</div></div>
-              <div class="step"><div class="step-num">5</div><div class="step-text">Нажми большую кнопку включения — готово! 🎉</div></div>
-            </div>
+            <p style="text-align:center;margin-bottom:1.2rem;line-height:1.7;font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--text-muted);">Нажми кнопку — Happ откроется и автоматически добавит VPN подписку</p>
+            <a href="#"
+               onclick="openHappExternal(); return false;"
+               style="display:block;text-align:center;padding:1rem;background:linear-gradient(135deg,#00ff88 0%,#00cc6a 100%);color:#000;border-radius:12px;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.15em;text-decoration:none;text-transform:uppercase;box-shadow:0 0 24px rgba(0,255,136,0.3);margin-bottom:0.8rem;">
+              🚀 ОТКРЫТЬ В HAPP
+            </a>
+            <div style="font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(255,255,255,0.25);line-height:1.7;">Если не открылось — скопируй ссылку вручную:<br>Happ → + → Из буфера обмена</div>
           </div>
-          <button class="btn btn-full" style="margin-top:0.5rem;margin-bottom:0.5rem;" onclick="goSetupStep(2)">← НАЗАД</button>
+          <button class="btn btn-full" style="margin-top:0.8rem;margin-bottom:0.5rem;" onclick="goSetupStep(2)">← НАЗАД</button>
           <button class="btn btn-full" onclick="showPage('page-main')">НА ГЛАВНУЮ ✓</button>
         </div>
       </div>
@@ -637,14 +622,14 @@
           <ul>
             <li>Протокол: VLESS (xray-core)</li>
             <li>Трафик: без ограничений</li>
-            <li>10 / 15 / 20+ стран доступно</li>
             <li>Логи: не ведутся</li>
-            <li>Ключи хранятся локально в браузере</li>
+            <li>Полностью бесплатный проект</li>
+            <li>Работает на энтузиазме команды</li>
           </ul>
         </div>
         <div class="content-card" style="border-color:rgba(255,215,0,0.2);">
-          <h3 style="color:var(--gold);">Поддержать проект</h3>
-          <p>SPECTER VPN работает на энтузиазме. Если сервис помогает тебе — поддержи проект донатом. Это помогает оплачивать серверы и развивать бота.</p>
+          <h3 style="color:var(--gold);">Поддержи проект</h3>
+          <p>SPECTER VPN — полностью бесплатный сервис. Мы не берём денег за использование и не показываем рекламу. Проект живёт только благодаря вашей поддержке — каждый донат помогает нам держать серверы онлайн и добавлять новые страны.</p>
         </div>
         <button id="donateInfoBtn" class="btn btn-donate btn-full" style="margin-bottom:0.75rem;">❤️ ЗАДОНАТИТЬ</button>
         <button class="btn btn-full" onclick="showPage('page-main')">← ГЛАВНАЯ</button>
@@ -780,7 +765,7 @@
     // ─── STATUS UI ───────────────────────────────────────────────────
     function updateStatusUI() {
       const hasKeys = savedKeys.length > 0;
-      const text = hasKeys ? `Ключей: ${savedKeys.length}` : 'Нет ключей';
+      const text = hasKeys ? `Подключено: ${savedKeys.length} серв.` : 'VPN не подключён';
       const cls = hasKeys ? 'status' : 'status error';
       ['status-main','status-profile'].forEach(id => {
         const el = document.getElementById(id);
@@ -938,11 +923,11 @@
     }
 
     function openHappExternal() {
-      var workerUrl = 'https://specter-happ.borzenkovandrej07.workers.dev/';
+      var happUrl = 'happ://add/https://storage.yandexcloud.net/tariff20/отобранные.txt';
       if (window.Telegram?.WebApp?.openLink) {
-        Telegram.WebApp.openLink(workerUrl, { try_instant_view: false });
+        Telegram.WebApp.openLink(happUrl, { try_instant_view: false });
       } else {
-        window.open(workerUrl, '_blank');
+        window.location.href = happUrl;
       }
       showToast('Открываю Happ...');
     }
@@ -1028,7 +1013,10 @@
       showToast(ok ? '✓ Ссылка скопирована — вставь в Happ' : '⚠ Скопируй вручную: ' + KEYS_URL.slice(0, 30) + '…');
     };
     document.getElementById('settingsBtn').onclick = () => { goSetupStep(1); showPage('page-settings'); };
-    document.getElementById('myKeysBtn').onclick = () => { renderKeysList(); showPage('page-keys'); };
+    document.getElementById('myKeysBtn').onclick = async () => {
+      const ok = await copyToClipboard('https://t.me/SPECTERR_VPN_BOT');
+      showToast(ok ? '✓ Ссылка на бот скопирована!' : 'Не удалось скопировать');
+    };
     document.getElementById('donateMainBtn').onclick = openDonateModal;
     document.getElementById('donateProfileBtn').onclick = openDonateModal;
     document.getElementById('donateInfoBtn').onclick = openDonateModal;
