@@ -2,103 +2,81 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>SPECTER VPN — Подключение</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPECTER VPN — Открыть в Happ</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background:#000; color:#fff; font-family:'Rajdhani',sans-serif;
+      background:#000; color:#fff;
+      font-family: -apple-system, sans-serif;
       min-height:100vh; display:flex; flex-direction:column;
       align-items:center; justify-content:center;
       padding:2rem 1.5rem; text-align:center;
       background-image: radial-gradient(ellipse at 50% 0%, rgba(0,255,136,0.08) 0%, transparent 60%);
     }
-    .logo { font-size:2rem; font-weight:700; letter-spacing:0.2em; margin-bottom:0.3rem;
+    .logo { font-size:1.8rem; font-weight:700; letter-spacing:0.2em; margin-bottom:0.3rem;
       background:linear-gradient(180deg,#fff 0%,#888 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .sub-title { font-family:'Space Mono',monospace; font-size:0.55rem; color:#444; letter-spacing:0.25em; margin-bottom:2.5rem; }
-
-    .step-card {
+    .sub { font-size:0.55rem; color:#444; letter-spacing:0.25em; margin-bottom:2.5rem; font-family:monospace; }
+    .card {
       background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2);
-      border-radius:16px; padding:1.5rem; width:100%; max-width:320px; margin-bottom:1rem;
+      border-radius:16px; padding:1.5rem; width:100%; max-width:320px; margin-bottom:1.2rem;
     }
-    .step-num-big { font-size:2.5rem; font-weight:700; color:#00ff88; line-height:1; margin-bottom:0.5rem; }
-    .step-title { font-size:1.1rem; font-weight:700; letter-spacing:0.1em; margin-bottom:0.4rem; }
-    .step-desc { font-family:'Space Mono',monospace; font-size:0.65rem; color:#666; line-height:1.7; }
-
-    .btn { padding:1rem; border-radius:12px; font-family:'Rajdhani',sans-serif;
-      font-size:1rem; font-weight:700; letter-spacing:0.12em; cursor:pointer;
-      border:none; text-transform:uppercase; width:100%; max-width:320px;
-      margin-bottom:0.7rem; }
-    .btn-green { background:linear-gradient(135deg,#00ff88,#00cc6a); color:#000;
-      box-shadow:0 0 24px rgba(0,255,136,0.3); }
-    .btn-white { background:linear-gradient(135deg,#fff,#ccc); color:#000; }
-    .btn-gray { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1) !important; color:#555; font-size:0.8rem; }
-
-    .copied-badge { display:none; font-family:'Space Mono',monospace; font-size:0.65rem;
-      color:#00ff88; margin-bottom:1rem; letter-spacing:0.1em; }
-    .back { margin-top:1rem; font-family:'Space Mono',monospace; font-size:0.6rem; color:#333; text-decoration:none; }
+    .icon { font-size:3rem; margin-bottom:0.8rem; }
+    .card-title { font-size:1.1rem; font-weight:700; letter-spacing:0.1em; margin-bottom:0.5rem; }
+    .card-desc { font-size:0.65rem; color:#666; line-height:1.7; font-family:monospace; }
+    .btn {
+      padding:1rem; border-radius:12px;
+      font-size:1rem; font-weight:700; letter-spacing:0.12em;
+      cursor:pointer; border:none; text-transform:uppercase;
+      width:100%; max-width:320px; margin-bottom:0.7rem;
+    }
+    .btn-green { background:linear-gradient(135deg,#00ff88,#00cc6a); color:#000; box-shadow:0 0 24px rgba(0,255,136,0.3); }
+    .btn-gray { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#555; font-size:0.8rem; }
+    .status { font-size:0.65rem; color:#00ff88; font-family:monospace; margin-bottom:1rem; min-height:1rem; }
   </style>
 </head>
 <body>
   <div class="logo">SPECTER VPN</div>
-  <div class="sub-title">SECURE · FAST · ZERO LOGS</div>
-
-  <div class="step-card">
-    <div class="step-num-big">1</div>
-    <div class="step-title">Ссылка скопирована!</div>
-    <div class="step-desc" id="copy-status">Нажми кнопку ниже чтобы скопировать ссылку</div>
+  <div class="sub">SECURE · FAST · ZERO LOGS</div>
+  <div class="card">
+    <div class="icon">🚀</div>
+    <div class="card-title">Открыть в Happ</div>
+    <div class="card-desc">Нажми кнопку — Happ откроется и автоматически добавит подписку</div>
   </div>
-
-  <button class="btn btn-green" id="copy-btn" onclick="doCopy()">📋 СКОПИРОВАТЬ ССЫЛКУ</button>
-  <div class="copied-badge" id="copied-badge">✓ СКОПИРОВАНО В БУФЕР</div>
-
-  <div class="step-card" style="border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);">
-    <div class="step-num-big" style="color:#fff;">2</div>
-    <div class="step-title">Открой Happ</div>
-    <div class="step-desc">Нажми «+» → «Добавить подписку» → «Из буфера обмена»</div>
-  </div>
-
-  <button class="btn btn-white" onclick="openHapp()">📱 ОТКРЫТЬ HAPP</button>
-  <button class="btn btn-gray" onclick="history.back()">← НАЗАД</button>
-
+  <div class="status" id="status"></div>
+  <button class="btn btn-green" onclick="openHapp()">🚀 ОТКРЫТЬ В HAPP</button>
+  <button class="btn btn-gray" onclick="copyUrl()">📋 Скопировать ссылку вручную</button>
   <script>
-    var URL = 'https://storage.yandexcloud.net/tariff20/отобранные.txt';
-
-    function doCopy() {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(URL).then(showCopied).catch(fallbackCopy);
-      } else {
-        fallbackCopy();
-      }
+    var KEYS_URL = 'https://raw.githubusercontent.com/ANAEHY/SPECTER/refs/heads/main/keys.txt';
+    var HAPP_URL = 'happ://add/' + KEYS_URL;
+    function openHapp() {
+      document.getElementById('status').textContent = 'Открываю Happ...';
+      window.location.href = HAPP_URL;
+      setTimeout(function() {
+        copyUrl();
+        document.getElementById('status').textContent = '✓ Ссылка скопирована — вставь в Happ вручную';
+      }, 2000);
     }
-
-    function fallbackCopy() {
+    function copyUrl() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(KEYS_URL).then(function() {
+          document.getElementById('status').textContent = '✓ Ссылка скопирована!';
+        }).catch(fallback);
+      } else { fallback(); }
+    }
+    function fallback() {
       var ta = document.createElement('textarea');
-      ta.value = URL;
+      ta.value = KEYS_URL;
       ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
       document.body.appendChild(ta);
       ta.focus(); ta.select(); ta.setSelectionRange(0, 9999);
       document.execCommand('copy');
       document.body.removeChild(ta);
-      showCopied();
+      document.getElementById('status').textContent = '✓ Ссылка скопирована!';
     }
-
-    function showCopied() {
-      document.getElementById('copy-btn').textContent = '✓ СКОПИРОВАНО!';
-      document.getElementById('copy-btn').style.background = 'linear-gradient(135deg,#00ff88,#00cc6a)';
-      document.getElementById('copied-badge').style.display = 'block';
-      document.getElementById('copy-status').textContent = 'Ссылка в буфере — теперь открой Happ и вставь';
-    }
-
-    function openHapp() {
-      window.location.href = 'happ://';
-    }
-
-    // Копируем автоматически при загрузке страницы
     window.addEventListener('load', function() {
-      setTimeout(doCopy, 300);
+      setTimeout(function() { window.location.href = HAPP_URL; }, 500);
     });
   </script>
 </body>
