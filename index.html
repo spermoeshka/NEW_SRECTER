@@ -923,10 +923,17 @@
     }
 
     function openHappExternal() {
-      var happUrl = 'happ://add/https://storage.yandexcloud.net/tariff20/отобранные.txt';
+      const keysUrl = 'https://raw.githubusercontent.com/ANAEHY/SPECTER/refs/heads/main/keys.txt';
+      const happUrl = 'happ://add/' + keysUrl;
+      
+      // Сначала копируем ссылку в буфер на случай если deep link не сработает
+      copyToClipboard(keysUrl);
+      
       if (window.Telegram?.WebApp?.openLink) {
-        Telegram.WebApp.openLink(happUrl, { try_instant_view: false });
+        // В Telegram открываем через внешний браузер — он умеет обрабатывать happ://
+        Telegram.WebApp.openLink('https://spermoeshka.github.io/NEW_SRECTER/happ-redirect.html', { try_instant_view: false });
       } else {
+        // Вне Telegram — пробуем напрямую
         window.location.href = happUrl;
       }
       showToast('Открываю Happ...');
@@ -1002,7 +1009,7 @@
       return false;
     }
 
-    const KEYS_URL = 'https://storage.yandexcloud.net/tariff20/отобранные.txt';
+    const KEYS_URL = 'https://raw.githubusercontent.com/ANAEHY/SPECTER/refs/heads/main/keys.txt';
 
     document.getElementById('addKeyBtn').onclick = async () => {
       const ok = await copyToClipboard(KEYS_URL);
