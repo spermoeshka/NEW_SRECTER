@@ -672,8 +672,8 @@
         <div class="donate-wallet-top">
           <div class="donate-wallet-label">💳 ВТБ / СБП</div>
         </div>
-        <div class="donate-wallet-addr" id="wallet-tinkoff">+7 (978) 935-37-55</div>
-        <button class="donate-copy-btn" onclick="copyWallet('tinkoff')" id="copy-tinkoff">СКОПИРОВАТЬ НОМЕР</button>
+        <div class="donate-wallet-addr" id="wallet-tinkoff">2200 2414 7153 8631</div>
+        <button class="donate-copy-btn" onclick="copyWallet('tinkoff')" id="copy-tinkoff">СКОПИРОВАТЬ НОМЕР КАРТЫ</button>
       </div>
 
       <div class="donate-wallet-card">
@@ -682,6 +682,30 @@
         </div>
         <div class="donate-wallet-addr" id="wallet-crypto">TKfnC5NtmhvSAu9tTqGpeAN1dpVeFuq5qR</div>
         <button class="donate-copy-btn" onclick="copyWallet('crypto')" id="copy-crypto">СКОПИРОВАТЬ АДРЕС</button>
+      </div>
+
+      <div class="donate-wallet-card">
+        <div class="donate-wallet-top">
+          <div class="donate-wallet-label">₿ Bitcoin Taproot (P2TR)</div>
+        </div>
+        <div class="donate-wallet-addr" id="wallet-btc">bc1p5qg0gjwrpwu403msa5x5kc756tn3027xvq0fu5mrlqae2ppm4ptq3xps46</div>
+        <button class="donate-copy-btn" onclick="copyWallet('btc')" id="copy-btc">СКОПИРОВАТЬ АДРЕС</button>
+      </div>
+
+      <div class="donate-wallet-card">
+        <div class="donate-wallet-top">
+          <div class="donate-wallet-label">Ξ Ethereum ERC-20</div>
+        </div>
+        <div class="donate-wallet-addr" id="wallet-eth">0xd56cd79f2a0836f66bc67a07f3133a346033c7b2</div>
+        <button class="donate-copy-btn" onclick="copyWallet('eth')" id="copy-eth">СКОПИРОВАТЬ АДРЕС</button>
+      </div>
+
+      <div class="donate-wallet-card">
+        <div class="donate-wallet-top">
+          <div class="donate-wallet-label">🎯 DonationAlerts</div>
+        </div>
+        <div class="donate-wallet-addr">donationalerts.com/r/berserkkkkk</div>
+        <button class="donate-copy-btn" onclick="window.open('https://www.donationalerts.com/r/berserkkkkk','_blank')">ОТКРЫТЬ СТРАНИЦУ</button>
       </div>
 
       <div class="donate-thanks">Любая сумма важна — спасибо, что помогаешь проекту жить 🙏</div>
@@ -707,7 +731,9 @@
     // ─── РЕКВИЗИТЫ (вписаны прямо в HTML выше) ───────────────────────
     const WALLETS = {
       tinkoff: document.getElementById('wallet-tinkoff').textContent,
-      crypto:  document.getElementById('wallet-crypto').textContent
+      crypto:  document.getElementById('wallet-crypto').textContent,
+      btc:     document.getElementById('wallet-btc').textContent,
+      eth:     document.getElementById('wallet-eth').textContent,
     };
 
     // ─── STATE ───────────────────────────────────────────────────────
@@ -958,7 +984,8 @@
       if (ok) {
         btn.textContent = '✓ СКОПИРОВАНО';
         btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = type === 'tinkoff' ? 'СКОПИРОВАТЬ НОМЕР' : 'СКОПИРОВАТЬ АДРЕС'; btn.classList.remove('copied'); }, 2000);
+        const labels = { tinkoff: 'СКОПИРОВАТЬ НОМЕР КАРТЫ', crypto: 'СКОПИРОВАТЬ АДРЕС', btc: 'СКОПИРОВАТЬ АДРЕС', eth: 'СКОПИРОВАТЬ АДРЕС' };
+        setTimeout(() => { btn.textContent = labels[type] || 'СКОПИРОВАТЬ АДРЕС'; btn.classList.remove('copied'); }, 2000);
         showToast('Реквизиты скопированы!');
       } else {
         showToast('Не удалось скопировать');
